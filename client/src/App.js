@@ -6,6 +6,8 @@ import "./App.css";
 import AppView from './components/AppViewComp';
 import Login from './components/LoginComp';
 import Signup from './components/SignupComp';
+import ProfileView from './components/ProfileViewComp';
+import SearchView from './components/SearchViewComp';
 
 const App = () =>{
 
@@ -16,7 +18,9 @@ const App = () =>{
           <Route exact path="/">
             <Redirect to="/login" />
           </Route>
-          <Route path="/app" component={AppView} />
+          <Route path="/app/jobs" component={AppView} />
+          <Route path="/app/search" component={SearchView} />
+          <Route path="/app/profile" component={ProfileView} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
         </Switch>

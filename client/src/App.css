@@ -97,3 +97,12 @@ button.bottom-right{
   font-size: 18px;
 }
 *{font-family: "Barlow";}
+
+.pivot_menu a{
+  color: #fcfcfc;
+}
+a.active{
+  background-color: inherit;
+  border-bottom: 5px solid #fcfcfc;
+  transition: 600ms;
+}

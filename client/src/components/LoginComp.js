@@ -80,7 +80,7 @@ const Login = () => {
                 </div>
                 <div className="column large6 medium8 small12">
                     <form className="login_middle dlevel2 secondary_blue">
-                        <h2 className="ta_center">Welcome to Hisab Kitab</h2><br />
+                        <h2 className="ta_center">Welcome to Job Khoj</h2><br />
                         <h4 className="ta_center">Sign Up Once and Access all your Make in Bharat apps using the Unified Login System</h4><br /><br />
                         
                         <NavLink className="pivot_title" to="/signup">
