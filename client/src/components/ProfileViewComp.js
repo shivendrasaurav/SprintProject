@@ -3,6 +3,9 @@ import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 import profileimg from "./profile.png";
 import BottomNavigation from './BottomNavigationComp';
+import ChangePassword from './ChangePasswordViewComp';
+import AppliedView from './AppliedViewComp';
+import BlockedView from './BlockedViewComp';
 
 const ProfileView = () => {
 
@@ -18,7 +21,9 @@ const ProfileView = () => {
         password: "abcd1234",
         skills: ["Java ", "C/C++ ", "Python ", "Laravel "],
         experience: "3",
-        blockedList: ["shivendrasaurav", "shivendra"]
+        appliedFor: ["Amazon", "Microsoft", "Google"],
+        savedJobs: ["Amazon", "Microsoft", "Google"],
+        blockedList: ["TCS", "Postman"]
     }]
 
     return(
@@ -32,14 +37,38 @@ const ProfileView = () => {
                     {profile.map(profiles =>(
                         <div key={profiles.username}>
                             <h6 className="ta_center">{profiles.fullname}</h6>
+                            <br/>
+                            
+                            <strong>Username:</strong>
+                            <span className="extradet">@{profiles.username}</span>
+                            <br/>
+                            
+                            <strong>Email:</strong>
+                            <span className="extradet">{profiles.email}</span>
+                            <br/>
+
+                            <strong>Phone:</strong>
+                            <span className="extradet">{profiles.phone}</span>
+                            <br/>
+
+                            <strong>Skills:</strong>
+                            <span className="extradet">{profiles.skills.join(", ")}</span>
+                            <br/>
+
+                            <strong>Experience:</strong>
+                            <span className="extradet">{profiles.experience}</span>
+                            <br/>
+
                             <span style={{display: "flex", justifyContent: "center"}}>
-                                <button className="primary_blue">Update Resume</button>
-                                <button className="primary_blue">Change Password</button><br />
+                                <button className="secondary_blue">Update Resume</button>
+                                <ChangePassword user={profiles} />
                             </span>
-                            <h6 className="extradet ta_center">Username: @{profiles.username}</h6>
-                            <h6 className="extradet ta_center">Phone Number: +91{profiles.phone}</h6>
-                            <h6 className="extradet ta_center">Skills: {profiles.skills}</h6>
-                            <h6 className="extradet ta_center">Experience(Number of Years): {profiles.experience}</h6>
+                            <span style={{display: "flex", justifyContent: "center"}}>
+                                <BlockedView user={profiles} />
+                                <AppliedView user={profiles} />
+                            </span>
+                            <br/><br/><br/><br/>
+
                         </div>
                     ))}
             </div>

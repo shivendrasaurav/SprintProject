@@ -94,7 +94,8 @@ button.bottom-right{
   width: 250px;
 }
 .extradet{
-  font-size: 18px;
+  display: block;
+  font-size: 22px;
 }
 *{font-family: "Barlow";}
 
