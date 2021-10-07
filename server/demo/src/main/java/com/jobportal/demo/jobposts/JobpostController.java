@@ -11,6 +11,7 @@ import java.util.Date;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -78,10 +79,37 @@ public class JobpostController {
 		query.addCriteria(Criteria.where("expire_date").gte(d));
 		query.addCriteria(Criteria.where("expire_date").gte(d));
 		query.addCriteria(Criteria.where("status").is(1));
+		
 		System.out.println(mongotemplate.find(query, JobpostModel.class));
 
 		return mongotemplate.find(query, JobpostModel.class);
 	}
+
+	
+	@GetMapping("/alljobs/{id}")
+	public List<JobpostModel> getalljobsforuser(@PathVariable String id){
+		
+		Date d=new Date();
+		Query query=new Query();
+		
+		UsersModel blocked=Userrepository.findById(id).get();
+		
+		List arr=blocked.getBlocked();
+				
+				
+		query.addCriteria(Criteria.where("expire_date").gte(d));
+
+		query.addCriteria(Criteria.where("status").is(1));
+		query.addCriteria(Criteria.where("company_name").nin(blocked.getBlocked()));
+		
+		System.out.println(mongotemplate.find(query, JobpostModel.class));
+
+		return mongotemplate.find(query, JobpostModel.class);
+	}
+	
+	
+	
+	
 	@GetMapping("/jobby/{searchQuery}")
 	public List<JobpostModel> jobBy(@PathVariable("searchQuery") String searchQuery){
 		
@@ -235,6 +263,29 @@ public class JobpostController {
 		
 		return mongotemplate.find(query,JobpostModel.class);
 	}
+	
+	
+	
+	@GetMapping("/usersavedjobs/{id}")
+	public List<JobpostModel>  allusersavedjobs(@PathVariable String id){
+		
+		UsersModel data=Userrepository.findById(id).get();
+
+		Query query=new Query();
+		
+		query.addCriteria(Criteria.where("id").in(data.getApplied_jobs()));
+		
+		System.out.println(mongotemplate.find(query, JobpostModel.class));
+
+		return  mongotemplate.find(query, JobpostModel.class);
+
+		
+		
+	}
+
+	
+	
+	
 	
 	
 	@GetMapping("/userappliedjobs/{id}")
