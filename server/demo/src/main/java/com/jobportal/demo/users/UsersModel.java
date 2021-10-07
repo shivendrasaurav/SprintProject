@@ -78,8 +78,15 @@ public class UsersModel {
 		}
 		private List<String> blocked;
 		private List<String> skills;
+		private List<String> applied_jobs;
 		private Binary pdf;
 		private Date created_date;
+		public List<String> getApplied_jobs() {
+			return applied_jobs;
+		}
+		public void setApplied_jobs(List<String> applied_jobs) {
+			this.applied_jobs = applied_jobs;
+		}
 		private float experience;
 		
 		
