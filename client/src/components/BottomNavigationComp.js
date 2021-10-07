@@ -38,7 +38,7 @@ const BottomNavigation = active => {
         <Fragment>
             <div className="pivot_menu large12 medium12 small12 primary_blue customBtmNav" style={{position: "fixed", top: "93.5vh", width: "100%"}}>
                 <NavLink id="jobs" to="/app/jobs" className="column large3 medium3 small4 ta_center">Jobs</NavLink>
-                <NavLink id="search" to="/app/saved" className="column large3 medium3 small4 ta_center">Saved</NavLink>
+                <NavLink id="search" to="/app/saved" className="column large3 medium3 small4 ta_center">Applied</NavLink>
                 <NavLink id="profile" to="/app/profile" className="column large3 medium3 small4 ta_center">Profile</NavLink>
             </div>
 

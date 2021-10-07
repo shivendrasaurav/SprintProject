@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 
 import moment from "moment";
+import axios from "axios";
 
 const JobDetailView = ({ job }) => {
   const openmod1 = () => {
@@ -12,9 +13,20 @@ const JobDetailView = ({ job }) => {
 
   const queueApplied = () => {
     //add job to applied queue
+    //send job to server
+    const job = axios.put(`/apply/615e8aa7bc8787497f6706a0/${job.id}`)
+      .then(res => {
+        if(res.status === 200) {
+          document.getElementById(`btn${job.id}`).disabled = true;
+          document.getElementById(`did${job.id}`).style.display = "Block";
+        }
+        else{
+          console.log("Error");
+        }
+      })
+      
 
-    document.getElementById(`btn${job.id}`).innerText = "Applied";
-    document.getElementById(`did${job.id}`).style.display = "Block";
+
   };
   const closedialog1 = () => {
     document.getElementById(`did${job.id}`).style.display = "None";
@@ -113,6 +125,33 @@ const JobDetailView = ({ job }) => {
         </div>
         <div className="dialogue_content large12">
           <h5>Your application has been submitted successfully.</h5>
+        </div>
+      </div>
+
+      <div className="dialogue_box" id={`did${job.id}`}>
+        <div
+          className="dialogue_pane large12"
+          style={{ height: "46px", backgroundColor: "#0065AFCC" }}
+        >
+          <span
+            style={{
+              fontSize: "24px",
+              position: "relative",
+              top: "6px",
+              left: "10px",
+            }}
+          >
+            Failed
+          </span>
+          <button
+            className="primary_red right ta_center mode_close_btn"
+            onClick={closedialog1}
+          >
+            <i className="ms-Icon ms-Icon--Cancel icon-center"></i>
+          </button>
+        </div>
+        <div className="dialogue_content large12">
+          <h5>Your application could not be submitted successfully.</h5>
         </div>
       </div>
     </Fragment>

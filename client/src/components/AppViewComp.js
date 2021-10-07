@@ -33,6 +33,26 @@ const AppView = () => {
     },
   ];
 
+  const saveJob = (jobid) => {
+    //save job id in local storage array
+    let jobids = [];
+    if (localStorage.getItem("jobids")) {
+      jobids = JSON.parse(localStorage.getItem("jobids"));
+    }
+    jobids.push(jobid);
+    localStorage.setItem("jobids", JSON.stringify(jobids));
+  }
+
+  const blockCompany = (company) => {
+    //block company in local storage array
+    let blockedcompanies = [];
+    if (localStorage.getItem("blockedcompanies")) {
+      blockedcompanies = JSON.parse(localStorage.getItem("blockedcompanies"));
+    }
+    blockedcompanies.push(company);
+    localStorage.setItem("blockedcompanies", JSON.stringify(blockedcompanies));
+  }
+
   useEffect(() => {
     async function fetchApi() {
       try {
@@ -103,7 +123,8 @@ const AppView = () => {
                     }}
                   />
                   <JobDetailView job={job} />
-                  <button className="secondary_blue dlevel1">Save</button>
+                  <button className="secondary_blue dlevel1" onClick={saveJob(job.id)}>Save</button>
+                  <button className="secondary_blue dlevel1" onClick={blockCompany(job.postedBy)}>Block Company</button>
                 </div>
               </li>
             ))}

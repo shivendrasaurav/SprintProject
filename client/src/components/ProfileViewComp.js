@@ -98,7 +98,6 @@ const ProfileView = () => {
             </span>
             <span style={{ display: "flex", justifyContent: "center" }}>
               <BlockedView user={userdata} />
-              <AppliedView user={userdata} />
             </span>
             <br />
             <br />

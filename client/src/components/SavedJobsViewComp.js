@@ -1,6 +1,4 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import Cookies from "js-cookie";
 import BottomNavigation from "./BottomNavigationComp";
 import JobDetailView from "./JobDetailViewComp";
 import axios from "axios";
@@ -55,20 +53,14 @@ const SavedJobsView = () => {
         className="pivot_menu large12 medium12 small12 primary_blue"
         style={{ width: "100%" }}
       >
-        <h5 style={{ display: "inline" }}>Saved Jobs</h5>
+        <h5 style={{ display: "inline" }}>Jobs Applied</h5>
       </div>
       <br />
       <br />
       <br />
       <br />
       <div className="page_container large6 medium8 small12 center">
-        <NavLink
-          to="/"
-          id="refreshbutton"
-          className="snackbar_button visible small primary_inverted dlevel2"
-        >
-          Some content has updated, Refresh
-        </NavLink>
+ 
         {allsavedjobs && (
           <ul>
             {allsavedjobs.map((job) => (
@@ -86,7 +78,6 @@ const SavedJobsView = () => {
                     }}
                   />
                   <JobDetailView job={job} />
-                  <button className="secondary_blue dlevel1">Unsave</button>
                 </div>
               </li>
             ))}
