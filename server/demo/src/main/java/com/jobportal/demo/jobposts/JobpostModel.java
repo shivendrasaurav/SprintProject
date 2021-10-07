@@ -25,7 +25,7 @@ public class JobpostModel {
 	private String experience;
 	private Date posted_date;
 	private Date expire_date;
-	private Binary pdf;
+	private List<Binary> pdf;
 	private int opeanings;
 	private int vacancys;
 	private int status;
@@ -108,10 +108,10 @@ public class JobpostModel {
 	public void setExpire_date(Date expire_date) {
 		this.expire_date = expire_date;
 	}
-	public Binary getPdf() {
+	public List<Binary> getPdf() {
 		return pdf;
 	}
-	public void setPdf(Binary pdf) {
+	public void setPdf(List<Binary> pdf) {
 		this.pdf = pdf;
 	}
 	public int getOpeanings() {
