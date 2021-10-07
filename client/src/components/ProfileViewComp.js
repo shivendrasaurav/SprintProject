@@ -93,12 +93,12 @@ const ProfileView = () => {
             <br />
 
             <span style={{ display: "flex", justifyContent: "center" }}>
-              <button className="secondary_blue">Update Resume</button>
-              {/* <ChangePassword user={profiles} /> */}
+              <NavLink to="/app/uploadResume"><button>Upload Resume</button></NavLink>
+              <ChangePassword user={userdata} />
             </span>
             <span style={{ display: "flex", justifyContent: "center" }}>
-              {/* <BlockedView user={profiles} />
-                      <AppliedView user={profiles} /> */}
+              <BlockedView user={userdata} />
+              <AppliedView user={userdata} />
             </span>
             <br />
             <br />

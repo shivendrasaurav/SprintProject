@@ -18,6 +18,7 @@ import AdminActiveView from "./components/AdminActiveViewComp";
 import AdminDisabledView from "./components/AdminDisabledViewComp";
 import AdminNewJobView from "./components/AdminNewJobViewComp";
 import AdminUserDetailsView from "./components/AdminUserDetailsViewComp";
+import UpdateResumeView from "./components/UpdateResumeViewComp";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/app/jobs" component={AppView} />
           <Route path="/app/saved" component={SavedJobsView} />
           <Route path="/app/profile" component={ProfileView} />
+          <Route path="/app/uploadResume" component={UpdateResumeView} />
           <Route path="/admin/dashboard" component={AdminDashboardView} />
           <Route path="/admin/activeJobs" component={AdminActiveView} />
           <Route path="/admin/disabledJobs" component={AdminDisabledView} />
