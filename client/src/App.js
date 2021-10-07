@@ -1,21 +1,25 @@
-import React, { Fragment } from 'react';
-import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import React, { Fragment } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import "fdweb/fluent-icons.css";
 import "fdweb/fluent.css";
 import "./App.css";
-import AppView from './components/AppViewComp';
-import Login from './components/LoginComp';
-import Signup from './components/SignupComp';
-import ProfileView from './components/ProfileViewComp';
-import SavedJobsView from './components/SavedJobsViewComp';
-import AdminDashboardView from './components/AdminDashboardViewComp';
-import AdminActiveView from './components/AdminActiveViewComp';
-import AdminDisabledView from './components/AdminDisabledViewComp';
-import AdminNewJobView from './components/AdminNewJobViewComp';
-import AdminUserDetailsView from './components/AdminUserDetailsViewComp';
+import AppView from "./components/AppViewComp";
+import Login from "./components/LoginComp";
+import Signup from "./components/SignupComp";
+import ProfileView from "./components/ProfileViewComp";
+import SavedJobsView from "./components/SavedJobsViewComp";
+import AdminDashboardView from "./components/AdminDashboardViewComp";
+import AdminActiveView from "./components/AdminActiveViewComp";
+import AdminDisabledView from "./components/AdminDisabledViewComp";
+import AdminNewJobView from "./components/AdminNewJobViewComp";
+import AdminUserDetailsView from "./components/AdminUserDetailsViewComp";
 
-const App = () =>{
-
+const App = () => {
   return (
     <Fragment>
       <Router>
@@ -36,7 +40,7 @@ const App = () =>{
         </Switch>
       </Router>
     </Fragment>
-  );  
-}
+  );
+};
 
 export default App;
