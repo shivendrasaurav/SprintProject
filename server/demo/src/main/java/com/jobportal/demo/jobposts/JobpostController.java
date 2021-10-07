@@ -74,12 +74,8 @@ public class JobpostController {
 		
 		Date d=new Date();
 		Query query=new Query();
-
-		query.addCriteria(Criteria.where("expire_date").gte(d));
 		query.addCriteria(Criteria.where("expire_date").gte(d));
 		query.addCriteria(Criteria.where("status").is(1));
-		System.out.println(mongotemplate.find(query, JobpostModel.class));
-
 		return mongotemplate.find(query, JobpostModel.class);
 	}
 	@GetMapping("/jobby/{searchQuery}")
@@ -140,7 +136,7 @@ public class JobpostController {
 	
 	
 	@PutMapping("/pdf/add")
-	public String addPhoto(@RequestParam("id") String id, 
+	public String addPdf(@RequestParam("id") String id, 
 	  @RequestParam("file") MultipartFile file) 
 	  throws IOException {
 		Binary pdf = new Binary(BsonBinarySubType.BINARY, file.getBytes());
@@ -153,7 +149,7 @@ public class JobpostController {
 	}
 	
 	@GetMapping("/pdf/{id}")
-	public String getPhoto(@PathVariable String id) {
+	public String getPdf(@PathVariable String id) {
 	    JobpostModel jobpost = repository.findById(id).get();
 	    return  Base64.getEncoder().encodeToString(jobpost.getPdf().getData());
 	}
@@ -168,20 +164,7 @@ public class JobpostController {
 				  .matchingAny(data);
 		Query query = TextQuery.queryText(criteria);
 		System.out.println(query);
-		System.out.println(mongotemplate.find(query,JobpostModel.class ));
-		
-		
-//		return mongotemplate.find(query,JobpostModel.class);
-		
-		
-		
-		
-//		Query query= new Query();
-//		
-//		query.addCriteria(Criteria.where("skills").is(data));
-//		System.out.println(mongotemplate.find(query,JobpostModel.class));
-//		
-		
+		System.out.println(mongotemplate.find(query,JobpostModel.class ));	
 		return repository.findBySkills(data);
 		
 
