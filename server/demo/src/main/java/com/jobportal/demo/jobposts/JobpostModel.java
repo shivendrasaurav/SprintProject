@@ -15,10 +15,13 @@ public class JobpostModel {
 	
 	@Id
 	private String id;
+
 	private @TextIndexed String title;
 	private @TextIndexed String company_name;
-	private @TextIndexed String description;
-	private @TextIndexed String skills;
+	private  @TextIndexed String description;
+	@TextIndexed 
+	private List<String> skills;
+
 	private String experience;
 	private Date posted_date;
 	private Date expire_date;
@@ -81,10 +84,10 @@ public class JobpostModel {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getSkills() {
+	public List<String> getSkills() {
 		return skills;
 	}
-	public void setSkills(String skills) {
+	public void setSkills(List<String> skills) {
 		this.skills = skills;
 	}
 	public String getExperience() {
