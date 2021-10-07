@@ -142,16 +142,25 @@ public class JobpostController {
 		Binary pdf = new Binary(BsonBinarySubType.BINARY, file.getBytes());
 		Query query=new Query();
 		query.addCriteria(Criteria.where("id").is(id));
-		JobpostModel jobTest1 = mongooperations.findOne(query, JobpostModel.class);
-		jobTest1.setPdf(pdf);
-		mongooperations.save(jobTest1);
-	    return jobTest1.getId();
+		JobpostModel jobTest = mongooperations.findOne(query, JobpostModel.class);
+		List<Binary> pdfs =(jobTest.getPdf()!=null)? jobTest.getPdf() : new ArrayList<Binary>();
+		pdfs.add(pdf);
+		jobTest.setPdf(pdfs);
+		mongooperations.save(jobTest);
+	    return jobTest.getId();
 	}
 	
 	@GetMapping("/pdf/{id}")
-	public String getPdf(@PathVariable String id) {
+	public List<String> getPdf(@PathVariable String id) {
 	    JobpostModel jobpost = repository.findById(id).get();
-	    return  Base64.getEncoder().encodeToString(jobpost.getPdf().getData());
+//	    return  Base64.getEncoder().encodeToString(jobpost.getPdf().getData());
+	    List<Binary> binarys =jobpost.getPdf();
+	    List<String> pdfs = new ArrayList<String>();
+	    for(int i=0;i<binarys.size();i++)
+	    {
+	    	pdfs.add(Base64.getEncoder().encodeToString(binarys.get(i).getData()));
+	    }
+	    return pdfs;
 	}
 	
 	
