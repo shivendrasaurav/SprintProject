@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -14,10 +15,10 @@ public class JobpostModel {
 	
 	@Id
 	private String id;
-	private String title;
-	private String company_name;
-	private String description;
-	private String skills;
+	private @TextIndexed String title;
+	private @TextIndexed String company_name;
+	private @TextIndexed String description;
+	private @TextIndexed String skills;
 	private String experience;
 	private Date posted_date;
 	private Date expire_date;

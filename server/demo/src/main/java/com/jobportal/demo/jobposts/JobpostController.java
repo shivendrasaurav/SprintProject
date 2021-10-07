@@ -1,7 +1,10 @@
 package com.jobportal.demo.jobposts;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +17,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.mongodb.core.query.TextQuery;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,13 +49,30 @@ public class JobpostController {
 	@Autowired
 	private MongoOperations mongooperations;
 	
+	@Autowired
+	private MongoTemplate mongotemplate;
+	
 	
 	@GetMapping("/alljobs")
 	public List<JobpostModel> getalljobs(){
-		List<JobpostModel> list=repository.findAll();
-		System.out.println(list);
 		
-		return list;
+		Date d=new Date();
+		Query query=new Query();
+		query.addCriteria(Criteria.where("expire_date").gte(d));
+
+		return mongotemplate.find(query, JobpostModel.class);
+	}
+	@GetMapping("/jobby/{searchQuery}")
+	public List<JobpostModel> jobBy(@PathVariable("searchQuery") String searchQuery){
+		
+		TextCriteria criteria = TextCriteria.forDefaultLanguage()
+				  .matching(searchQuery);
+		
+		Query query = TextQuery.queryText(criteria)
+		  .sortByScore();
+		System.out.println("[jobBy] query:"+query);
+		
+		return mongotemplate.find(query, JobpostModel.class);
 	}
 	
 	@PostMapping("/createjobs")
@@ -72,7 +96,6 @@ public class JobpostController {
 			@RequestParam(value = "pagesize", defaultValue = "2") int pageSize,
 			@RequestParam(value = "sortBy", defaultValue = "id") String sortBy) {
 			
-//		System.out.println(pageNo+" "+pageSize+" "+sortBy);
 		Map<String, Object> response = new HashMap<String, Object>();
 		Sort sort = Sort.by(sortBy);
 		Pageable page =  PageRequest.of(pageNo, pageSize, sort);
