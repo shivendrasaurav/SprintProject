@@ -1,76 +1,150 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
-import BottomNavigation from './BottomNavigationComp';
-import JobDetailView from './JobDetailViewComp';
+import BottomNavigation from "./BottomNavigationComp";
+import JobDetailView from "./JobDetailViewComp";
+import axios from "axios";
 
 const AdminNewJobView = () => {
+  const [company_name, setcompany_name] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [skills, setskills] = useState([]);
+  const [experience, setExperience] = useState("");
+  const [expire_date, setexpire_date] = useState("");
 
-    const [postedBy, setPostedBy] = useState('');
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [location, setLocation] = useState('');
-    const [requiredSkills, setRequiredSkills] = useState('');
-    const [experience, setExperience] = useState('');
-    const [expiryDate, setExpiryDate] = useState('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const data = {
-            postedBy: postedBy,
-            title: title,
-            description: description,
-            location: location,
-            requiredSkills: requiredSkills,
-            experience: experience,
-            expiryDate: expiryDate
-        }
-        console.log(data);
-    }
+    // let arr = skills.split(",");
+    // setskills(arr);
 
-    const goBack = () => {
-        window.history.back();
-    }
+    const jobpost = {
+      company_name,
+      title,
+      description,
+      location,
+      skills,
+      experience,
+      expire_date,
+    };
 
-    useEffect(() => {
-/*
-        const userexists = Cookies.get('username');
-        if(userexists==undefined)
-            redirect();
-        else
-            getsender(userexists);
-*/
-    }, []);
+    console.log(jobpost);
 
-    return(
-        <Fragment>
-            <div className="pivot_menu large12 medium12 small12 primary_blue" style={{width: "100%"}}>
-                <h5 style={{display: "inline"}}>New Job</h5>
-            </div><br /><br /><br /><br />
-            <div className="page_container large6 medium8 small12 center">
-                <form className="large12 medium12 small12" onSubmit={handleSubmit}>
-                    <input type="text" className="btm_brdr" required onChange={e => setPostedBy(e.target.value)}/><br/>
-                    <label>Posted By</label><br/><br/>
-                    <input type="text" className="btm_brdr" required onChange={e => setTitle(e.target.value)}/><br/>
-                    <label>Job Title</label><br/><br/>
-                    <input type="text" className="btm_brdr" required onChange={e => setDescription(e.target.value)} /><br/>
-                    <label>Description</label><br/><br/>
-                    <input type="text" className="btm_brdr" required onChange={e => setLocation(e.target.value) } /><br/>
-                    <label>Location</label><br/><br/>
-                    <input type="text" className="btm_brdr" required onChange={e => setRequiredSkills(e.target.value)} /><br/>
-                    <label>Experience (In Number of Years)</label><br/><br/>
-                    <input type="text" className="btm_brdr" required onChange={e => setExperience(e.target.value)} /><br/>
-                    <label>Skills Required (Comma Seperated)</label><br/><br/>
-                    <input type="date" className="btm_brdr" required onChange={e=> setExpiryDate(e.target.value)} /><br/>
-                    <label>Expiry Date</label><br/><br/>
-                    <button type="submit" className="secondary_blue dlevel1">Add this Job</button>
-                </form>
+    try {
+      const data = (
+        await axios.post(`http://localhost:8080/createjobs`, jobpost)
+      ).data;
 
-                <button className="primary_red right ta_center bottom-right" onClick={goBack}><i className="ms-Icon ms-Icon--Back icon-center"></i></button>  
-            </div>
+      console.log(data);
+    } catch (err) {}
+  };
 
-        </Fragment>
-    );
-}
+  const goBack = () => {
+    window.history.back();
+  };
+
+  useEffect(() => {}, []);
+
+  return (
+    <Fragment>
+      <div
+        className="pivot_menu large12 medium12 small12 primary_blue"
+        style={{ width: "100%" }}
+      >
+        <h5 style={{ display: "inline" }}>New Job</h5>
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <div className="page_container large6 medium8 small12 center">
+        <form className="large12 medium12 small12" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            className="btm_brdr"
+            required
+            onChange={(e) => setcompany_name(e.target.value)}
+          />
+          <br />
+          <label>Company Name</label>
+          <br />
+          <br />
+          <input
+            type="text"
+            className="btm_brdr"
+            required
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <br />
+          <label>Job Title</label>
+          <br />
+          <br />
+          <input
+            type="text"
+            className="btm_brdr"
+            required
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <br />
+          <label>Description</label>
+          <br />
+          <br />
+          <input
+            type="text"
+            className="btm_brdr"
+            required
+            onChange={(e) => setLocation(e.target.value)}
+          />
+          <br />
+          <label>Location</label>
+          <br />
+          <br />
+          <input
+            type="text"
+            className="btm_brdr"
+            required
+            onChange={(e) => setskills(e.target.value)}
+          />
+          <br />
+          <label>Skills Required (Comma Seperated)</label>
+          <br />
+          <br />
+          <input
+            type="text"
+            className="btm_brdr"
+            required
+            onChange={(e) => setExperience(e.target.value)}
+          />
+          <br />
+          <label>Experience (In Number of Years)</label>
+          <br />
+          <br />
+          <input
+            type="date"
+            className="btm_brdr"
+            required
+            onChange={(e) => setexpire_date(e.target.value)}
+          />
+          <br />
+          <label>Expiry Date</label>
+          <br />
+          <br />
+          <button type="submit" className="secondary_blue dlevel1">
+            Add this Job
+          </button>
+        </form>
+
+        <button
+          className="primary_red right ta_center bottom-right"
+          onClick={goBack}
+        >
+          <i className="ms-Icon ms-Icon--Back icon-center"></i>
+        </button>
+      </div>
+    </Fragment>
+  );
+};
 
 export default AdminNewJobView;
